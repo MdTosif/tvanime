@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Home() {
-  const [search, setSearch] = useState("dub");
+  const [search, setSearch] = useState("");
   const router = useRouter();
   return (
     <div className="container mx-auto">
@@ -14,6 +14,11 @@ export default function Home() {
         >
           Search Anime
         </label>
+        <form onSubmit={(e)=>{
+          e.preventDefault();
+          router.push(`/search?search=${search}`);
+
+        }}>
         <input
           type="text"
           id="username"
@@ -24,6 +29,7 @@ export default function Home() {
           }}
           className="mt-1 p-2 w-full border bg-slate-500 border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
         />
+        </form>
         <div className="m-2 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4">
           {[
             0,
