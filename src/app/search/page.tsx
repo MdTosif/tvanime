@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { animeCache } from "whichanime/utils/anime";
 
@@ -18,6 +19,9 @@ export default async function Home({
   }
   return (
     <div className="container mx-auto">
+      <Head>
+        <title>${searchParams["search"]}</title>
+      </Head>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {res.results.map((data, idx) => {
           return (
