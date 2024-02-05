@@ -1,0 +1,6 @@
+{
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "vs-code-prettier-eslint.prettierLast": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+}

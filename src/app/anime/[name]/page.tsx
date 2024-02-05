@@ -3,43 +3,39 @@ import Head from "next/head";
 import Link from "next/link";
 import { animeCache } from "whichanime/utils/anime";
 
-
 export async function generateMetadata(
   {
     params,
     searchParams,
   }: {
-    params: { name: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+    params: { name: string };
+    searchParams: { [key: string]: string | string[] | undefined };
   },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const id = params.name
+  const id = params.name;
 
   return {
     title: id,
-  }
+  };
 }
-
 
 export default async function Home({
   params,
   searchParams,
 }: {
-  params: { name: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: { name: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-
-  let res = await animeCache.getEpisodes(params.name)
-
+  let res = await animeCache.getEpisodes(params.name);
 
   if (!res) {
-    return <>no data</>
+    return <>no data</>;
   }
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto bg-primary">
       <Head>
         <title>{res.title.toString()}</title>
       </Head>
@@ -47,12 +43,13 @@ export default async function Home({
         {res?.episodes?.map((data, idx) => {
           return (
             <Link href={`/stream/${data.id}`} key={idx}>
-              <div className=" p-4 rounded shadow-md bg-gray-50 bg-opacity-40"  >
-                <p className="font-bold p-2 text-3xl text-center">{data.number}</p>
-
+              <div className="border border-accent p-4 rounded shadow-md bg-secondary bg-opacity-40">
+                <p className="font-bold p-2 text-3xl text-center text-accent  ">
+                  {data.number}
+                </p>
               </div>
             </Link>
-          )
+          );
         })}
       </div>
     </div>
