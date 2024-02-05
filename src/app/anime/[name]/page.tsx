@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getEpisodes } from "whichanime/utils/anime";
+import { animeCache } from "whichanime/utils/anime";
 
 
 export default async function Home({
@@ -10,12 +10,13 @@ export default async function Home({
   searchParams: { [key: string]: string | string[] | undefined }
 }){
   
-  let res = await getEpisodes(params.name)
+  let res = await animeCache.getEpisodes(params.name)
 
 
   if (!res) {
     return <>no data</>
   }
+
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16 xl:grid-cols-32 gap-4">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAnimes } from "whichanime/utils/anime";
+import { animeCache } from "whichanime/utils/anime";
 
 
 export default async function Home({
@@ -10,7 +10,7 @@ export default async function Home({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
 
-  let res = await getAnimes(searchParams["search"] as string)
+  let res = await animeCache.getAnimes(searchParams["search"] as string)
 
 
   if (!res) {
