@@ -1,6 +1,25 @@
+import { Metadata, ResolvingMetadata } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { animeCache } from "whichanime/utils/anime";
+
+export async function generateMetadata(
+  {
+    params,
+    searchParams,
+  }: {
+    params: { episode: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.episode
+
+  return {
+    title: id,
+  }
+}
 
 
 export default async function Home({
@@ -20,7 +39,7 @@ export default async function Home({
   return (
     <div className="container mx-auto">
       <Head>
-        <title>${params.episode}</title>
+        <title>{params.episode}</title>
       </Head>
       <h2>MX Player: </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">

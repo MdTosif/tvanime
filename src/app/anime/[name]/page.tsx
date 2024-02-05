@@ -1,6 +1,26 @@
+import { Metadata, ResolvingMetadata } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { animeCache } from "whichanime/utils/anime";
+
+
+export async function generateMetadata(
+  {
+    params,
+    searchParams,
+  }: {
+    params: { name: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.name
+
+  return {
+    title: id,
+  }
+}
 
 
 export default async function Home({
@@ -21,7 +41,7 @@ export default async function Home({
   return (
     <div className="container mx-auto">
       <Head>
-        <title>${res.title.toString()}</title>
+        <title>{res.title.toString()}</title>
       </Head>
       <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16 xl:grid-cols-32 gap-4">
         {res?.episodes?.map((data, idx) => {
