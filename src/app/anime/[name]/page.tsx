@@ -2,17 +2,15 @@ import { Metadata, ResolvingMetadata } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { animeCache } from "whichanime/utils/anime";
+import AnimeEpisode from "./page-client";
 
-export async function generateMetadata(
-  {
-    params,
-    searchParams,
-  }: {
-    params: { name: string };
-    searchParams: { [key: string]: string | string[] | undefined };
-  },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: { name: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}): Promise<Metadata> {
   // read route params
   const id = params.name;
 
@@ -34,24 +32,5 @@ export default async function Home({
     return <>no data</>;
   }
 
-  return (
-    <div className="container mx-auto bg-primary">
-      <Head>
-        <title>{res.title.toString()}</title>
-      </Head>
-      <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16 xl:grid-cols-32 gap-4">
-        {res?.episodes?.map((data, idx) => {
-          return (
-            <Link href={`/stream/${data.id}`} key={idx}>
-              <div className="border border-accent p-4 rounded shadow-md bg-secondary bg-opacity-40">
-                <p className="font-bold p-2 text-3xl text-center text-accent  ">
-                  {data.number}
-                </p>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
+  return <AnimeEpisode animeInfo={res} searchParams={searchParams} />;
 }

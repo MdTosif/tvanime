@@ -1,20 +1,23 @@
 "use client";
+import { Button, Input } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ThemeToggle from "whichanime/components/themeToggle";
 
 export default function Home() {
   const [search, setSearch] = useState("");
   const router = useRouter();
   return (
-    <div className="container mx-auto bg-primary">
+    <div className="container mx-auto">
       <Head>
         <title>Tv Anime</title>
       </Head>
+      <ThemeToggle />
       <div className=" p-6 rounded-md shadow-md w-9/12 mx-auto ">
         <label
           htmlFor="username"
-          className="block text-3xl font-medium text-accent text-center"
+          className="block text-3xl font-medium text-center"
         >
           Search Anime
         </label>
@@ -24,7 +27,7 @@ export default function Home() {
             router.push(`/search?search=${search}`);
           }}
         >
-          <input
+          <Input
             type="text"
             id="username"
             name="username"
@@ -32,7 +35,7 @@ export default function Home() {
             onChange={(e) => {
               setSearch((s) => e.target.value);
             }}
-            className="mt-1 p-2 w-full border bg-secondary border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+            className=""
           />
         </form>
         <div className="m-2 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4">
@@ -78,33 +81,36 @@ export default function Home() {
             " ",
           ].map((key, idx) => {
             return (
-              <button
-                className="py-2 bg-secondary bg-opacity-40 border rounded-2xl "
+              <Button
+                variant="outline"
+                className=" "
                 key={idx}
                 onClick={() => {
                   setSearch((s) => s + key);
                 }}
               >
-                <p className="font-bold text-lg text-accent">{key}</p>
-              </button>
+                <p className="font-bold text-lg">{key}</p>
+              </Button>
             );
           })}
-          <button
-            className="py-2 bg-secondary bg-opacity-40 border rounded-2xl "
+          <Button
+            className=" "
+            variant="outline"
             onClick={() => {
               setSearch((s) => s.slice(0, -1));
             }}
           >
-            <p className="font-bold text-lg text-accent">(x)</p>
-          </button>
-          <button
-            className="py-2 bg-secondary bg-opacity-40 border rounded-2xl "
+            <p className="font-bold text-lg">(x)</p>
+          </Button>
+          <Button
+            variant="outline"
+            className=" "
             onClick={() => {
               router.push(`/search?search=${search}`);
             }}
           >
-            <p className="font-bold text-lg text-accent">{"=>"}</p>
-          </button>
+            <p className="font-bold text-lg">{"=>"}</p>
+          </Button>
         </div>
       </div>
     </div>

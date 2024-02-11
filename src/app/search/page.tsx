@@ -1,6 +1,5 @@
-import Head from "next/head";
-import Link from "next/link";
 import { animeCache } from "whichanime/utils/anime";
+import SearchClient from "./page-client";
 
 export default async function Home({
   params,
@@ -14,26 +13,5 @@ export default async function Home({
   if (!res) {
     return <>no data</>;
   }
-  return (
-    <div className="container mx-auto bg-primary">
-      <Head>
-        <title>{searchParams["search"]}</title>
-      </Head>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {res.results.map((data, idx) => {
-          return (
-            <Link href={`/anime/${data.id}`} key={idx}>
-              <div style={{ backgroundImage: `url(${data.image})` }}>
-                <div className=" p-4 rounded shadow-md h-44 bg-primary bg-opacity-40">
-                  <p className="font-bold text-lg p-2 text-accent">
-                    {data.title.toString()}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
+  return <SearchClient animeSearchResult={res} searchParams={searchParams} />;
 }
