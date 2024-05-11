@@ -2,14 +2,15 @@ import {
   ANIME,
   ISubtitle,
   IVideo,
+  MOVIES,
   StreamingServers,
 } from "@consumet/extensions";
 import { Cacheable } from "typescript-cacheable";
 
-let anime = new ANIME.Gogoanime();
+let anime = new MOVIES.Goku();
 
-class Anime {
-  private static instance: Anime;
+class TV {
+  private static instance: TV;
   @Cacheable() // Set TTL to 5 minutes (60 seconds * 5 minutes)
   public async getAnimes(name: string, page: number = 1) {
     let res = await anime.search(name, page);
@@ -17,22 +18,18 @@ class Anime {
   }
 
   @Cacheable() // Set TTL to 5 minutes (60 seconds * 5 minutes)
-  public async getTrendingAnimes(page: number = 1) {
-    let res = await anime.fetchTopAiring(page);
-    return res;
-  }
-
-  @Cacheable() // Set TTL to 5 minutes (60 seconds * 5 minutes)
-  public async getEpisode(id: string) {
+  public async getEpisode(id: string, mediaId: string) {
+    console.log(id, mediaId);
+    
     let sauce = await Promise.allSettled([
-      anime.fetchEpisodeSources(id),
-      anime.fetchEpisodeSources(id, StreamingServers.StreamSB),
-      // anime.fetchEpisodeSources(id, StreamingServers.VidStreaming),
+      anime.fetchEpisodeSources(id, mediaId),
     ]);
-    let videos: IVideo[] = [];
+    let videos: IVideo[] = [];    
     let subs: ISubtitle[] = [];
     sauce.forEach((e) => {
+      
       if (e?.status === "fulfilled") {
+        console.log(e);
         videos.push(...e.value.sources);
       }
     });
@@ -41,15 +38,15 @@ class Anime {
 
   @Cacheable() // Set TTL to 5 minutes (60 seconds * 5 minutes)
   public async getEpisodes(id: string) {
-    return anime.fetchAnimeInfo(id);
+    return anime.fetchMediaInfo(id);
   }
 
-  public static getInstance(): Anime {
-    if (!Anime.instance) {
-      Anime.instance = new Anime();
+  public static getInstance(): TV {
+    if (!TV.instance) {
+      TV.instance = new TV();
     }
-    return Anime.instance;
+    return TV.instance;
   }
 }
 
-export const animeCache = Anime.getInstance();
+export const tvCache = TV.getInstance();
