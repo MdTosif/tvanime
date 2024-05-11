@@ -11,7 +11,7 @@ export default function VimePlayer({
   vidSrc?: IVideo[];
 }) {
   // Obtain a ref if you need to call any methods.
-  const [src, setSrc] = useState("");
+  const [src, setSrc] = useState(vidSrc?.[0]?.url);
 
   useEffect(() => {
     console.log(src);
@@ -23,9 +23,11 @@ export default function VimePlayer({
         <div className="col-span-11">
           <Player>
             {/* Provider component is placed here. */}
-            <Hls version="latest" poster={thumbnail}>
-              <source data-src={src} type="application/x-mpegURL" />
-            </Hls>
+            {src && (
+              <Hls version="latest" poster={thumbnail}>
+                <source data-src={src} type="application/x-mpegURL" />
+              </Hls>
+            )}
             <DefaultUi></DefaultUi>
           </Player>
         </div>

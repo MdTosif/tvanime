@@ -1,20 +1,22 @@
 import Image from "next/image";
-import Link from "next/link";
 import { animeCache } from "whichanime/utils/anime";
 import VimePlayer from "./_component/player";
+import EpisodeList from "./_component/episode-list";
 
 export default async function Home({
   params,
   searchParams,
 }: {
   params: { id: string; episodeId?: string };
-  searchParams?: { page: string; search?: string };
+  searchParams?: { page: string; search?: string; episodeId?: string };
 }) {
   const anime = await animeCache.getEpisodes(params.id);
   const episodes = anime?.episodes?.[0]?.id
-    ? await animeCache.getEpisode(params.episodeId || anime?.episodes?.[0]?.id)
+    ? await animeCache.getEpisode(
+        searchParams?.episodeId || anime?.episodes?.[0]?.id,
+      )
     : undefined;
-  console.log(episodes);
+  console.log(searchParams?.episodeId);
 
   return (
     <>
@@ -50,16 +52,12 @@ export default async function Home({
             <span className="text-white">Language: </span>
             {anime.subOrDub}
           </p>
-          <VimePlayer thumbnail={anime.image} vidSrc={episodes?.videos} />
+          {episodes?.videos.length && (
+            <VimePlayer thumbnail={anime.image} vidSrc={episodes?.videos} />
+          )}
 
           <div className="card-actions bg-accent-content p-4 rounded-lg shadow-lg">
-            {anime.episodes?.map((e) => (
-              <Link key={e.id} href={`?episodeId=${e.id}`}>
-                <button className="btn btn-primary btn-lg">
-                  {e.number.toString()}
-                </button>
-              </Link>
-            ))}
+            <EpisodeList episodes={anime.episodes} />
           </div>
         </div>
       </div>
