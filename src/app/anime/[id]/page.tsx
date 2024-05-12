@@ -22,9 +22,9 @@ export default async function Home({
     <>
       <div className="card w-full bg-base-100 shadow-xl image-full">
         <figure>
-          <Image src={anime.image as string} alt="Shoes" layout="fill" />
+          <Image src={anime.image as string} alt="Shoes" fill />
         </figure>
-        <div className="card-body ">
+        <div className="card-body bg-primary">
           <h2 className="card-title text-purple-500">
             {anime.title.toString()}
           </h2>

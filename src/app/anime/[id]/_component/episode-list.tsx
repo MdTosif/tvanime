@@ -8,7 +8,7 @@ export default function EpisodeList({
   episodes?: IAnimeEpisode[];
 }) {
   useEffect(() => {
-    window.localStorage.setItem(window.location.href, "visited");
+    global?.window.localStorage.setItem(window.location.href, "visited");
   }, []);
   return (
     <>
@@ -20,24 +20,26 @@ export default function EpisodeList({
               window.open(`?episodeId=${e.id}`, "_self");
             }}
           >
-            <button
-              className={`btn btn-primary btn-lg ${
-                window.localStorage.getItem(
+            {global?.window && (
+              <button
+                className={`btn btn-primary btn-lg ${
+                  window.localStorage.getItem(
+                    window.location.origin +
+                      window.location.pathname +
+                      "?episodeId=" +
+                      e.id,
+                  ) && "bg-secondary"
+                } ${
                   window.location.origin +
                     window.location.pathname +
                     "?episodeId=" +
-                    e.id,
-                ) && "bg-secondary"
-              } ${
-                window.location.origin +
-                  window.location.pathname +
-                  "?episodeId=" +
-                  e.id ===
-                  window.location.href && "bg-accent"
-              }`}
-            >
-              {e.number.toString()}
-            </button>
+                    e.id ===
+                    window.location.href && "bg-accent"
+                }`}
+              >
+                {e.number.toString()}
+              </button>
+            )}
           </div>
         ))}
     </>

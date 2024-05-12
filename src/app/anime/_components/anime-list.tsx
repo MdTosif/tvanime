@@ -16,7 +16,7 @@ export default function AnimeList({ animes }: { animes: IAnimeResult[] }) {
                 <Image
                   src={anime.image as string}
                   alt={anime.cover as string}
-                  layout="fill"
+                  fill
                 />
               </figure>
               <div className="card-body">
