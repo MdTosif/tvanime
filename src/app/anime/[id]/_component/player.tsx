@@ -1,6 +1,7 @@
 "use client";
 import { IVideo } from "@consumet/extensions";
 import { Player, DefaultUi, Hls } from "@vime/react";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export default function VimePlayer({
@@ -39,6 +40,13 @@ export default function VimePlayer({
                   {`${e.quality}`}
                 </button>
               ))}
+            <Link
+              href={`intent:${src}#Intent;package=com.mxtech.videoplayer.ad;S.title=New%20title;end`}
+              as={"button"}
+              className="btn btn-primary btn-md "
+            >
+              mx
+            </Link>
           </div>
         </div>
       </div>
