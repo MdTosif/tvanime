@@ -28,12 +28,12 @@ export default function VimePlayer({
           </Player>
         </div>
         <div className="col-span-1">
-          <div className="flex flex-row lg:flex-col gap-4 ">
+          <div className="flex flex-row flex-wrap w-svw lg:w-auto lg:flex-col gap-4 ">
             {vidSrc?.map &&
               vidSrc?.map((e) => (
                 <button
                   key={e.url}
-                  className="btn btn-accent btn-md lg:btn-lg "
+                  className="btn btn-accent btn-md "
                   onClick={(ev) => setSrc(e.url)}
                 >
                   {`${e.quality}`}
