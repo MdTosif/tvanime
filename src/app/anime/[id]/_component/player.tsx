@@ -42,7 +42,6 @@ export default function VimePlayer({
               ))}
             <Link
               href={`intent:${src}#Intent;package=com.mxtech.videoplayer.ad;S.title=New%20title;end`}
-              as={"button"}
               className="btn btn-primary btn-md "
             >
               mx
