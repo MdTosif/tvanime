@@ -2,6 +2,8 @@ import { animeCache } from "whichanime/utils/anime";
 import Link from "next/link";
 import SearchAnimeInput from "./_components/search";
 import AnimeList from "./_components/anime-list";
+import IconNext from "whichanime/components/icon-next";
+import IconPrev from "whichanime/components/icon-prev";
 
 export default async function Home({
   params,
@@ -17,16 +19,20 @@ export default async function Home({
   return (
     <>
       <div className="grid grid-cols-12 gap-6 m-4">
-        <div className="col-span-12 flex flex-row gap-6 justify-evenly">
-          <div className="w-full">
+        <div className="col-span-12 flex flex-row gap-2">
+          <div className="flex-grow">
             <SearchAnimeInput searchTerm={searchParams?.search} />
           </div>
-          <div className="flex flex-row gap-6 justify-between">
-            <Link href={"?page=" + (page + 1)}>
-              <button className="btn btn-primary">Next</button>
-            </Link>
+          <div className="flex flex-row gap-2 justify-between">
             <Link href={"?page=" + (page - 1)}>
-              <button className="btn btn-primary">Prev</button>
+              <button className="btn btn-primary btn-md">
+                <IconPrev />
+              </button>
+            </Link>
+            <Link href={"?page=" + (page + 1)}>
+              <button className="btn btn-primary btn-md">
+                <IconNext />
+              </button>
             </Link>
           </div>
         </div>
