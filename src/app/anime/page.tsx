@@ -24,12 +24,12 @@ export default async function Home({
             <SearchAnimeInput searchTerm={searchParams?.search} />
           </div>
           <div className="flex flex-row gap-2 justify-between">
-            <Link href={"?page=" + (page - 1)}>
+            <Link href={`?search=${searchParams?.search}&page=` + (page - 1)}>
               <button className="btn btn-primary btn-md">
                 <IconPrev />
               </button>
             </Link>
-            <Link href={"?page=" + (page + 1)}>
+            <Link href={`?search=${searchParams?.search}&page=` + (page + 1)}>
               <button className="btn btn-primary btn-md">
                 <IconNext />
               </button>

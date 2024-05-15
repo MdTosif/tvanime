@@ -1,6 +1,6 @@
 "use client";
 import { IVideo } from "@consumet/extensions";
-import { Player, DefaultUi, Hls } from "@vime/react";
+import { Player, DefaultUi, Hls, DefaultControls } from "@vime/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -25,7 +25,9 @@ export default function VimePlayer({
                 <source data-src={src} type="application/x-mpegURL" />
               </Hls>
             )}
-            <DefaultUi></DefaultUi>
+            <DefaultUi>
+              <DefaultControls activeDuration={1000}></DefaultControls>
+            </DefaultUi>
           </Player>
         </div>
         <div className="col-span-1">
