@@ -2,6 +2,20 @@ import Image from "next/image";
 import { animeCache } from "whichanime/utils/anime";
 import VimePlayer from "./_component/player";
 import EpisodeList from "./_component/episode-list";
+import { redirect } from "next/navigation";
+import { Metadata } from "next/types";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}): Promise<Metadata> {
+  return {
+    title: `Tv Anime | ${params.id}`,
+    description: `watch anime ad free without interruption`,
+  };
+}
 
 export default async function Home({
   params,
@@ -16,7 +30,11 @@ export default async function Home({
         searchParams?.episodeId || anime?.episodes?.[0]?.id,
       )
     : undefined;
-  console.log(searchParams?.episodeId);
+
+  async function serveraction(params: FormData) {
+    "use server";
+    redirect(`?episodeId=${params.get("episode")}`);
+  }
 
   return (
     <>
@@ -56,9 +74,12 @@ export default async function Home({
             <VimePlayer thumbnail={anime.image} vidSrc={episodes?.videos} />
           )}
 
-          <div className="card-actions bg-accent-content p-4 rounded-lg shadow-lg">
+          <form
+            action={serveraction}
+            className="card-actions bg-accent-content p-4 rounded-lg shadow-lg"
+          >
             <EpisodeList episodes={anime.episodes} />
-          </div>
+          </form>
         </div>
       </div>
     </>

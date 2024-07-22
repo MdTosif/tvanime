@@ -4,8 +4,10 @@ import { useEffect } from "react";
 
 export default function EpisodeList({
   episodes,
+  onClick,
 }: {
   episodes?: IAnimeEpisode[];
+  onClick?: (x: string) => void;
 }) {
   useEffect(() => {
     global?.window.localStorage.setItem(window.location.href, "visited");
@@ -16,12 +18,15 @@ export default function EpisodeList({
         episodes?.map((e) => (
           <div
             key={e.id}
-            onClick={() => {
-              window.open(`?episodeId=${e.id}`, "_self");
-            }}
+            // onClick={() => {
+            //   window.open(`?episodeId=${e.id}`, "_self");
+            // }}
           >
             {global?.window && (
               <button
+                type="submit"
+                name="episode"
+                value={e.id}
                 className={`btn btn-primary btn-lg ${
                   window.localStorage.getItem(
                     window.location.origin +
