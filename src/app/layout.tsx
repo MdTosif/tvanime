@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: `watch anime ad free without interruption`,
   };
 }
-
+//version bump
 export default function RootLayout({
   children,
 }: {
